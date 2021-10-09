@@ -7,7 +7,8 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Dashboard',
     component: Dashboard,
     children: [
-      { path: '', component: () => import('@/views/Dashboard/WitcherTracker.vue') }
+      { path: '', component: () => import('@/views/Dashboard/WitcherTracker.vue') },
+      { path: 'laboratory', component: () => import('@/views/Dashboard/WitcherLaboratory.vue') }
     ]
   }
 ]
