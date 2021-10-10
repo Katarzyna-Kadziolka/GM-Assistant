@@ -1,5 +1,6 @@
 <template>
-    <v-app>
+  <div id="app">
+  <v-app id="inspire">
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -23,7 +24,8 @@
         </tbody>
       </template>
     </v-simple-table>
-    </v-app>
+  </v-app>
+</div>
 </template>
 
 <script lang="ts">

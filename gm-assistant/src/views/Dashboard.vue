@@ -55,8 +55,8 @@ export default defineComponent({
   data () {
     return {
       items: [
-        { title: 'Śledzenie starć', icon: 'mdi-sword-cross', link: '/witcher-tracker' },
-        { title: 'Laboratorium', icon: 'mdi-pot-steam' }
+        { title: 'Combat Tracker', icon: 'mdi-sword-cross', link: '/witcher-tracker' },
+        { title: 'Laboratory', icon: 'mdi-pot-steam' }
       ],
       right: null,
       drawer: false,
