@@ -56,7 +56,7 @@ export default defineComponent({
     return {
       items: [
         { title: 'Combat Tracker', icon: 'mdi-sword-cross', link: '/witcher-tracker' },
-        { title: 'Laboratory', icon: 'mdi-pot-steam' }
+        { title: 'Laboratory', icon: 'mdi-pot-steam', link: '/witcher-laboratory' }
       ],
       right: null,
       drawer: false,
