@@ -1,31 +1,24 @@
 <template>
-  <div id="app">
-  <v-app id="inspire">
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th class="text-left">
-              Name
-            </th>
-            <th class="text-left">
-              Calories
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="item in desserts"
-            :key="item.name"
+  <v-app>
+    <v-container class="grey lighten-5">
+      <v-row no-gutters>
+        <v-col
+          v-for="n in 3"
+          :key="n"
+          cols="12"
+          sm="4"
+        >
+          <v-card
+            class="pa-2"
+            outlined
+            tile
           >
-            <td>{{ item.name }}</td>
-            <td>{{ item.calories }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
+            One of three columns
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
-</div>
 </template>
 
 <script lang="ts">
