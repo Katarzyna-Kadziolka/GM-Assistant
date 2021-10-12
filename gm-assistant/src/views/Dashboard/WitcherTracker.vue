@@ -17,8 +17,8 @@
       <th scope="col"></th>
     </tr>
   </thead>
-  <tbody v-for="(row, key) in startAmmountOfRowns" :key="{ key }">
-    <tr>
+  <tbody>
+    <tr v-for="(row, key) in startAmmountOfRowns" :key="{ key }">
       <td>
         <div class="d-flex justify-content-between">
           <div class="input-group">
@@ -78,19 +78,15 @@
       </td>
       <td>
         <div class="input-group">
-          <button type="button" class="btn btn-light btn_width" data-toggle="tooltip" data-placement="top" title="Physical damage">
-            <v-list-item-icon class="mr-3">
-              <v-icon>{{'mdi-sword'}}</v-icon>
-            </v-list-item-icon>
+          <button type="button" class="btn btn-light btn_width d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Physical damage">
+            <v-icon>{{'mdi-sword'}}</v-icon>
           </button>
         </div>
       </td>
       <td>
         <div class="input-group">
-          <button type="button" class="btn btn-light btn_width" data-toggle="tooltip" data-placement="top" title="Magic damage">
-            <v-list-item-icon class="mr-3">
-              <v-icon>{{'mdi-fire'}}</v-icon>
-            </v-list-item-icon>
+          <button type="button" class="btn btn-light btn_width d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Magic damage">
+            <v-icon>{{'mdi-fire'}}</v-icon>
           </button>
         </div>
       </td>
@@ -117,7 +113,26 @@ export default defineComponent({
   name: 'WitcherTracker',
   data: () => {
     return {
-      startAmmountOfRowns: 3
+      startAmmountOfRowns: 3,
+      character: {
+        Index: Number,
+        Initiative: Number,
+        Name: String,
+        Description: String,
+        Dodge: Number,
+        Melee: Number,
+        Intellect: Number,
+        MagicArmour: Number,
+        Armour: Number,
+        Hp: Number,
+        Damage: Number
+      },
+      characters: []
+    }
+  },
+  created: function () {
+    for (var n = 0; n < 3; n++) {
+      this.characters.push()
     }
   }
 })
