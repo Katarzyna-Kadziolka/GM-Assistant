@@ -8,7 +8,7 @@
       <th scope="col">Description</th>
       <th scope="col">Dodge</th>
       <th scope="col" data-toggle="tooltip" data-placement="top" title="Fist fight">Melee</th>
-      <th scope="col">Intellect</th>
+      <th scope="col">Mind</th>
       <th scope="col" data-toggle="tooltip" data-placement="top" title="Magic armor">Magic ar.</th>
       <th scope="col">Armor</th>
       <th scope="col" data-toggle="tooltip" data-placement="top" title="Health Point">HP</th>
@@ -17,80 +17,8 @@
       <th scope="col"></th>
     </tr>
   </thead>
-  <tbody>
-    <tr v-for="(row, key) in startAmmountOfRowns" :key="{ key }">
-      <td>
-        <div class="d-flex justify-content-between">
-          <div class="input-group">
-            <input type="text" class="form-control">
-          </div>
-          <button type="button" class="btn_width ml-3" data-toggle="tooltip" data-placement="top" title="Random">
-            <v-list-item-icon>
-              <v-icon>{{'mdi-dice-6'}}</v-icon>
-            </v-list-item-icon>
-          </button>
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control">
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control">
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control">
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control">
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control">
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control">
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control">
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control">
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control">
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <button type="button" class="btn btn-light btn_width d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Physical damage">
-            <v-icon>{{'mdi-sword'}}</v-icon>
-          </button>
-        </div>
-      </td>
-      <td>
-        <div class="input-group">
-          <button type="button" class="btn btn-light btn_width d-flex justify-content-center" data-toggle="tooltip" data-placement="top" title="Magic damage">
-            <v-icon>{{'mdi-fire'}}</v-icon>
-          </button>
-        </div>
-      </td>
-    </tr>
+  <tbody v-for="(row, key) in startAmmountOfRowns" :key="{ key }">
+    <TableRow />
   </tbody>
 </table>
 </div>
@@ -108,6 +36,7 @@
 <script lang="ts">
 
 import { defineComponent } from 'vue'
+import TableRow from '@/components/Witcher/TableRow.vue'
 
 export default defineComponent({
   name: 'WitcherTracker',
@@ -130,16 +59,13 @@ export default defineComponent({
       characters: []
     }
   },
+  components: {
+    TableRow
+  },
   created: function () {
-    for (var n = 0; n < 3; n++) {
+    for (var n = 0; n < this.startAmmountOfRowns; n++) {
       this.characters.push()
     }
   }
 })
 </script>
-
-<style lang="scss" scoped>
-  .btn_width {
-    width: 40px
-  }
-</style>
