@@ -96,6 +96,18 @@ export default defineComponent({
       }
     }
   },
+  props: {
+    Initiative: Number,
+    Name: String,
+    Description: String,
+    Dodge: Number,
+    Melee: Number,
+    Intellect: Number,
+    MagicArmour: Number,
+    Armour: Number,
+    Hp: Number,
+    Damage: Number
+  },
   methods: {
     getRandomInitiative () {
       var min = 1
