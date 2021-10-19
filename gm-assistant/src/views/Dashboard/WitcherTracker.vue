@@ -17,7 +17,7 @@
       <th scope="col"></th>
     </tr>
   </thead>
-  <tbody v-for="(row, key) in startAmmountOfRowns" :key="{ key }">
+  <tbody v-for="(row, key) in startAmmountOfRows" :key="{ key }">
     <TableRow />
   </tbody>
 </table>
@@ -26,9 +26,9 @@
   <div class="d-flex justify-content-between">
     <div>
       <button type="button" class="btn btn-light mr-3" data-toggle="tooltip" data-placement="top" title="Sort by initiative">Sort</button>
-      <button type="button" class="btn btn-light">Reset tracker</button>
+      <button type="button" class="btn btn-light" @click="this.startAmmountOfRows = 3">Reset tracker</button>
     </div>
-      <button type="button" class="btn btn-light">Add row</button>
+      <button type="button" class="btn btn-light" @click="this.startAmmountOfRows++">Add row</button>
   </div>
 </v-container>
 </template>
@@ -42,30 +42,36 @@ export default defineComponent({
   name: 'WitcherTracker',
   data: () => {
     return {
-      startAmmountOfRowns: 3,
+      startAmmountOfRows: 3,
       character: {
-        Index: Number,
-        Initiative: Number,
-        Name: String,
-        Description: String,
-        Dodge: Number,
-        Melee: Number,
-        Intellect: Number,
-        MagicArmour: Number,
-        Armour: Number,
-        Hp: Number,
-        Damage: Number
+        Initiative: 0,
+        Name: '',
+        Description: '',
+        Dodge: 0,
+        Melee: 0,
+        Intellect: 0,
+        MagicArmour: 0,
+        Armour: 0,
+        Hp: 0,
+        Damage: 0
       },
-      characters: []
+      characters: [
+        {
+          Initiative: 0,
+          Name: '',
+          Description: '',
+          Dodge: 0,
+          Melee: 0,
+          Intellect: 0,
+          MagicArmour: 0,
+          Armour: 0,
+          Hp: 0,
+          Damage: 0
+        }]
     }
   },
   components: {
     TableRow
-  },
-  created: function () {
-    for (var n = 0; n < this.startAmmountOfRowns; n++) {
-      this.characters.push()
-    }
   }
 })
 </script>
