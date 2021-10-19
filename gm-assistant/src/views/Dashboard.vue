@@ -29,7 +29,7 @@
           <v-list-item
             v-for="item in items"
             :key="item.title"
-            link
+            @click="redirect(item.routerName)"
           >
             <v-list-item-icon class="mr-3">
               <v-icon>{{ item.icon }}</v-icon>
@@ -55,8 +55,8 @@ export default defineComponent({
   data () {
     return {
       items: [
-        { title: 'Combat Tracker', icon: 'mdi-sword-cross', link: '/witcher-tracker' },
-        { title: 'Laboratory', icon: 'mdi-pot-steam', link: '/witcher-laboratory' }
+        { title: 'Combat Tracker', icon: 'mdi-sword-cross', routerName: 'witcherTracker' },
+        { title: 'Laboratory', icon: 'mdi-pot-steam', routerName: 'laboratory' }
       ],
       right: null,
       drawer: false,
@@ -70,6 +70,11 @@ export default defineComponent({
   watch: {
     group () {
       this.drawer = false
+    }
+  },
+  methods: {
+    redirect (routerName: string) {
+      this.$router.replace({ name: routerName })
     }
   }
 })

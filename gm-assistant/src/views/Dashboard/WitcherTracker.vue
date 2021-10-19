@@ -1,6 +1,6 @@
 <template>
 <div class="table-responsive">
-<table class="table table-hover">
+<table class="table tr-hover">
   <thead>
     <tr>
       <th scope="col">Initiative</th>
@@ -69,3 +69,11 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+  .tr-hover {
+    :hover {
+      background: #E8EAF6;
+    }
+  }
+</style>
