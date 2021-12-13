@@ -37,8 +37,12 @@
 
 import { defineComponent } from 'vue'
 import TableRow from '@/components/Witcher/TableRow.vue'
+import { useStore } from '@/store/index'
 
 export default defineComponent({
+  setup () {
+    const store = useStore()
+  },
   name: 'WitcherTracker',
   data: () => {
     return {
@@ -54,24 +58,14 @@ export default defineComponent({
         Armour: 0,
         Hp: 0,
         Damage: 0
-      },
-      characters: [
-        {
-          Initiative: 0,
-          Name: '',
-          Description: '',
-          Dodge: 0,
-          Melee: 0,
-          Intellect: 0,
-          MagicArmour: 0,
-          Armour: 0,
-          Hp: 0,
-          Damage: 0
-        }]
+      }
     }
   },
   components: {
     TableRow
+  },
+  methods: {
+    
   }
 })
 </script>
