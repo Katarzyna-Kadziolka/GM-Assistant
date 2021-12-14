@@ -1,9 +1,10 @@
 <template>
-  <tr :class="[ Hp < 0 ? 'dead' : 'table-default' ]">
+  <tr :class="[ character.hp < 0 ? 'dead' : 'table-default' ]">
       <td>
         <div class="d-flex justify-content-between">
           <div class="input-group">
-            <input type="text" class="form-control" v-model="Initiative"
+            <input type="number" class="form-control"
+                v-model="character.initiative"
                 @focus="$event.target.select()">
           </div>
           <v-btn class="ml-2" type="button" icon @click="getRandomInitiative()">
@@ -13,68 +14,81 @@
       </td>
       <td>
         <div class="input-group">
-          <input type="text" class="form-control" v-model="Name"
+          <input type="text" class="form-control"
+            v-model="character.name"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
-          <input type="text" class="form-control" v-model="Description"
+          <input type="text" class="form-control"
+            v-model="character.description"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
-          <input type="text" class="form-control" v-model="Dodge"
+          <input type="number" class="form-control"
+            v-model="character.dodge"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
-          <input type="text" class="form-control" v-model="Melee"
+          <input type="number" class="form-control"
+            v-model="character.melee"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
-          <input type="text" class="form-control" v-model="Intellect"
+          <input type="number" class="form-control"
+            v-model="character.intellect"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
-          <input type="text" class="form-control" v-model="MagicArmour"
+          <input type="number" class="form-control"
+            v-model="this.character.magicArmour"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
-          <input type="text" class="form-control" v-model="Armour"
+          <input type="number" class="form-control"
+            v-model="this.character.armour"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
-          <input type="text" class="form-control" v-model="Hp"
+          <input type="number" class="form-control"
+            v-model="this.character.hp"
             @focus="$event.target.select()">
         </div>
       </td>
       <td class="row-border">
         <div class="input-group">
-          <input type="text" class="form-control" v-model="Damage"
+          <input type="number" class="form-control"
+            v-model="this.character.damage"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
-          <v-btn type="button" icon @click="dealDamage(this.Damage - this.Armour)">
+          <v-btn type="button"
+            icon
+            @click="dealDamage(this.character.damage - this.character.armour)">
             <v-icon>{{'mdi-sword'}}</v-icon>
           </v-btn>
         </div>
       </td>
       <td>
         <div class="input-group">
-          <v-btn type="button" icon @click="dealDamage(this.Damage - this.MagicArmour)">
+          <v-btn type="button"
+            icon
+            @click="dealDamage(this.character.damage - this.character.magicArmour)">
             <v-icon>{{'mdi-fire'}}</v-icon>
           </v-btn>
         </div>
@@ -85,29 +99,30 @@
 <script>
 export default {
   name: 'WitcherTableRow',
-  data: () => ({
-    Initiative: 0,
-    Name: '',
-    Description: '',
-    Dodge: 0,
-    Melee: 0,
-    Intellect: 0,
-    MagicArmour: 0,
-    Armour: 0,
-    Hp: 0,
-    Damage: 0,
-  }),
+  data() {
+    return {
+      character: {},
+    };
+  },
+  props: {
+    id: Number,
+  },
+  mounted() {
+    this.character = this.$store.getters.row_state(this.id);
+  },
   methods: {
     getRandomInitiative() {
       const min = 1;
       const max = 20;
-      this.Initiative = Math.floor(Math.random() * (max - min + 1)) + min;
+      this.character.initiative = Math.floor(Math.random() * (max - min + 1)) + min;
     },
     dealDamage(realDamage) {
       if (realDamage > 0) {
-        this.Hp -= realDamage;
+        let hpInt = Number(this.character.hp);
+        hpInt -= realDamage;
+        this.character.hp = hpInt;
       }
-      this.Damage = 0;
+      this.damage = 0;
     },
   },
 

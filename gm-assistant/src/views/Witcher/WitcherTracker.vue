@@ -20,8 +20,8 @@
             <th scope="col"></th>
             </tr>
         </thead>
-        <tbody v-for="(row, key) in witcher_rows" :key="{ key }">
-            <WitcherTableRow />
+        <tbody v-for="(rowId) in rows_ids" :key="rowId">
+            <WitcherTableRow :id="rowId" />
         </tbody>
         </table>
       </div>
@@ -48,11 +48,16 @@ import WitcherTableRow from '../../components/Witcher/WitcherTableRow.vue';
 
 export default {
   name: 'WitcherTracker',
+  data() {
+    return {
+      id: 0,
+    };
+  },
   components: {
     WitcherTableRow,
   },
   computed: {
-    ...mapState(['witcher_rows']),
+    ...mapState(['rows_ids']),
   },
   mounted() {
     for (let step = 0; step < 3; step += 1) {
@@ -62,21 +67,23 @@ export default {
   methods: {
     ...mapMutations(['addToWitcherRows']),
     addNewRow() {
-      const row = {
-        Initiative: 0,
-        Name: '',
-        Description: '',
-        Dodge: 0,
-        Melee: 0,
-        Intellect: 0,
-        MagicArmour: 0,
-        Armour: 0,
-        Hp: 0,
-        Damage: 0,
+      this.id += 1;
+      const character = {
+        initiative: 0,
+        name: '',
+        description: '',
+        dodge: 0,
+        melee: 0,
+        intellect: 0,
+        magicArmour: 0,
+        armour: 0,
+        hp: 0,
+        damage: 0,
       };
-      this.$store.commit('addToWitcherRows', row);
+      this.$store.commit('addToWitcherRows', this.id, character);
     },
     resetTracker() {},
+    sortTracker() {},
   },
 };
 </script>

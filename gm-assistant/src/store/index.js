@@ -5,11 +5,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    witcher_rows: [],
+    witcher_rows: {},
+    rows_ids: [],
+  },
+  getters: {
+    row_state: (state) => (id) => state.witcher_rows[id],
   },
   mutations: {
-    addToWitcherRows(state, row) {
-      state.witcher_rows.push(row);
+    addToWitcherRows(state, rowId, row) {
+      state.rows_ids.push(rowId);
+      state.witcher_rows[rowId] = row;
     },
   },
   actions: {
