@@ -1,10 +1,11 @@
 <template>
-  <tr :class="[ character.hp < 0 ? 'dead' : 'table-default' ]">
+  <tr :class="[ this.witcher_rows[this.id].hp < 0 ? 'dead' : 'table-default' ]">
       <td>
         <div class="d-flex justify-content-between">
           <div class="input-group">
             <input type="number" class="form-control"
-                v-model="character.initiative"
+                :value="this.witcher_rows[this.id].initiative"
+                @change="valueUpdatedByEvent($event, 'initiative')"
                 @focus="$event.target.select()">
           </div>
           <v-btn class="ml-2" type="button" icon @click="getRandomInitiative()">
@@ -15,63 +16,72 @@
       <td>
         <div class="input-group">
           <input type="text" class="form-control"
-            v-model="character.name"
+            :value="this.witcher_rows[this.id].name"
+            @change="valueUpdatedByEvent($event, 'name')"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
           <input type="text" class="form-control"
-            v-model="character.description"
+            :value="this.witcher_rows[this.id].description"
+            @change="valueUpdatedByEvent($event, 'description')"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
           <input type="number" class="form-control"
-            v-model="character.dodge"
+            :value="this.witcher_rows[this.id].dodge"
+            @change="valueUpdatedByEvent($event, 'dodge')"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
           <input type="number" class="form-control"
-            v-model="character.melee"
+            :value="this.witcher_rows[this.id].melee"
+            @change="valueUpdatedByEvent($event, 'melee')"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
           <input type="number" class="form-control"
-            v-model="character.intellect"
+            :value="this.witcher_rows[this.id].intellect"
+            @change="valueUpdatedByEvent($event, 'intellect')"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
           <input type="number" class="form-control"
-            v-model="this.character.magicArmour"
+            :value="this.witcher_rows[this.id].magicArmour"
+            @change="valueUpdatedByEvent($event, 'magicArmour')"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
           <input type="number" class="form-control"
-            v-model="this.character.armour"
+            :value="this.witcher_rows[this.id].armour"
+            @change="valueUpdatedByEvent($event, 'armour')"
             @focus="$event.target.select()">
         </div>
       </td>
       <td>
         <div class="input-group">
           <input type="number" class="form-control"
-            v-model="this.character.hp"
+            :value="this.witcher_rows[this.id].hp"
+            @change="valueUpdatedByEvent($event, 'hp')"
             @focus="$event.target.select()">
         </div>
       </td>
       <td class="row-border">
         <div class="input-group">
           <input type="number" class="form-control"
-            v-model="this.character.damage"
+            :value="this.witcher_rows[this.id].damage"
+            @change="valueUpdatedByEvent($event, 'damage')"
             @focus="$event.target.select()">
         </div>
       </td>
@@ -79,7 +89,8 @@
         <div class="input-group">
           <v-btn type="button"
             icon
-            @click="dealDamage(this.character.damage - this.character.armour)">
+            @click="dealDamage(
+              this.witcher_rows[this.id].damage - this.witcher_rows[this.id].armour)">
             <v-icon>{{'mdi-sword'}}</v-icon>
           </v-btn>
         </div>
@@ -88,7 +99,8 @@
         <div class="input-group">
           <v-btn type="button"
             icon
-            @click="dealDamage(this.character.damage - this.character.magicArmour)">
+            @click="dealDamage(
+              this.witcher_rows[this.id].damage - this.witcher_rows[this.id].magicArmour)">
             <v-icon>{{'mdi-fire'}}</v-icon>
           </v-btn>
         </div>
@@ -97,32 +109,44 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex';
+
 export default {
   name: 'WitcherTableRow',
-  data() {
-    return {
-      character: {},
-    };
-  },
   props: {
     id: Number,
   },
-  mounted() {
-    this.character = this.$store.getters.row_state(this.id);
+  computed: {
+    ...mapState(['witcher_rows']),
   },
   methods: {
+    ...mapMutations(['rowValueUpdatedByEvent', 'rowValueUpdated']),
     getRandomInitiative() {
       const min = 1;
       const max = 20;
-      this.character.initiative = Math.floor(Math.random() * (max - min + 1)) + min;
+      this.valueUpdated(Math.floor(Math.random() * (max - min + 1)) + min, 'initiative');
     },
     dealDamage(realDamage) {
       if (realDamage > 0) {
-        let hpInt = Number(this.character.hp);
-        hpInt -= realDamage;
-        this.character.hp = hpInt;
+        let hp = Number(this.witcher_rows[this.id].hp);
+        hp -= realDamage;
+        this.valueUpdated(hp, 'hp');
       }
-      this.damage = 0;
+      this.valueUpdated(0, 'damage');
+    },
+    valueUpdatedByEvent(event, name) {
+      this.$store.commit('rowValueUpdatedByEvent', {
+        newValue: event.target.value,
+        id: this.id,
+        name,
+      });
+    },
+    valueUpdated(newValue, name) {
+      this.$store.commit('rowValueUpdated', {
+        newValue,
+        id: this.id,
+        name,
+      });
     },
   },
 

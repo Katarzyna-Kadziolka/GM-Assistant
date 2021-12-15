@@ -68,19 +68,7 @@ export default {
     ...mapMutations(['addToWitcherRows']),
     addNewRow() {
       this.id += 1;
-      const character = {
-        initiative: 0,
-        name: '',
-        description: '',
-        dodge: 0,
-        melee: 0,
-        intellect: 0,
-        magicArmour: 0,
-        armour: 0,
-        hp: 0,
-        damage: 0,
-      };
-      this.$store.commit('addToWitcherRows', this.id, character);
+      this.$store.commit('addToWitcherRows', this.id);
     },
     resetTracker() {},
     sortTracker() {},
